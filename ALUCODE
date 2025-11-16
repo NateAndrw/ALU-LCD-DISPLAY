@@ -1,0 +1,45 @@
+// PROJECT  : CHUMP ALU LCD DISPLAY
+// PURPOSE  : DISPLAY ALU MODE
+// COURSE   : ISC4U-E
+// AUTHOR   : N. ANDREW
+// DATE     : 2025-11-15
+// MCU      : ATmega328P
+// STATUS   : Working
+
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(A0, A5, 12, 11, 10, 9, 8, 7, 6, 5);
+
+void setup() {
+  lcd.begin(16, 2);
+  pinMode(A3, INPUT);  // CN
+  pinMode(A4, INPUT);  // M
+}
+
+void loop() {
+  int cn = digitalRead(A3);  // Carry in
+  int m = digitalRead(A4);   // Mode
+
+
+  //  Top row
+  if (cn == HIGH) {
+    lcd.setCursor(0, 0);
+    lcd.print("Active HGH Input");
+  }
+  if (cn == LOW) {
+    lcd.setCursor(0, 0);
+    lcd.print("Active LOW Input");
+  }
+  delay(150);
+
+  //  Bottom Row
+  if (m == HIGH) {
+    lcd.setCursor(0, 1);
+    lcd.print("     Logic      ");
+  }
+  if (m == LOW) {
+    lcd.setCursor(0, 1);
+    lcd.print("   Arithmetic   ");
+  }
+  delay(150);  // <<< additional stability
+}
